@@ -1,0 +1,2 @@
+#define LGL_CC "${COMPILER_VERSION}"
+#define LGL_CFLAGS "${LGL_CFLAGS}"
