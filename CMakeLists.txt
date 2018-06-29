@@ -21,13 +21,21 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 #set(AIGER "")
 
-add_library(lgl lglib lglbnr lgldimacs lglopts)
+
+
+add_library(lgl STATIC 
+        lglib.c lglib.h lglconst.h lgloptl.h lglopts.c lglopts.h
+        lgldimacs.c lgldimacs.h
+        lglbnr.c lglcfg.h lglcflags.h makefile
+        lglopts.c lglopts.h lglconst.h lgloptl.h
+)
+
+add_library(lglmain STATIC lglmain.c lglib.h)
 
 add_library(lingeling INTERFACE)
 target_link_libraries(lingeling INTERFACE lglmain lgl)
 target_include_directories(lingeling INTERFACE .)
 
-add_library(lglmain STATIC lglmain.c lglib.h)
 add_library(plingeling plingeling.c lglib.h)
 target_link_libraries(plingeling lgl pthread) 
 add_library(treengeling treengeling.c lglib.h)
@@ -42,8 +50,3 @@ add_library(lgluntrace lgluntrace.c lglib.h)
 target_link_libraries(lgluntrace lgl)
 add_library(lglddtrace lglddtrace.c lglib.h)
 target_link_libraries(lglddtrace lgl)
-
-add_library(lglib STATIC lglib.c lglib.h lglconst.h lgloptl.h lglopts.c lglopts.h)
-add_library(lgldimacs STATIC lgldimacs.c lgldimacs.h)
-add_library(lglbnr STATIC lglbnr.c lglcfg.h lglcflags.h makefile)
-add_library(lglopts STATIC lglopts.c lglopts.h lglconst.h lgloptl.h)
